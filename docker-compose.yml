@@ -1,0 +1,27 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_sena
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: evidencia
+
+    ports:
+      - "3307:3306"
+
+  apache:
+    image: php:8.2-apache
+    container_name: apache_sena
+    restart: always
+
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./app:/var/www/html
+
+    depends_on:
+      - mysql
